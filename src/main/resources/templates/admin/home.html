@@ -32,6 +32,11 @@
             <p class="admin-message-text text-center" th:utext="${adminMessage}"></p>
         </div>
     </div>
+    <form th:action="@{/download}" method="get" >
+        <button class="btn btn-md btn-danger btn-block" name="registration"
+                type="Submit">descargar documento pdf
+        </button>
+    </form>
 
 </div>
 </body>

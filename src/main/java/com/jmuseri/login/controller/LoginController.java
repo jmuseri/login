@@ -1,16 +1,26 @@
 package com.jmuseri.login.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import com.jmuseri.login.model.User;
 import com.jmuseri.login.service.UserService;
+
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -67,6 +77,25 @@ public class LoginController {
         modelAndView.setViewName("admin/home");
         return modelAndView;
     }
+    
+    @RequestMapping(value="/download", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
+    public @ResponseBody void download(HttpServletResponse response) throws IOException{
+        InputStream in = getClass()
+        	      .getResourceAsStream("mainBBVA.pdf");
+
+	        //response.setContentType("");
+	        response.setHeader("Content-Disposition", "attachment; filename=" + "mainBBVA.pdf");
+//	        response.setHeader("Content-Length", String.valueOf(in.));
+	        FileCopyUtils.copy(in, response.getOutputStream());
+			
+			
+    }
+    
+    
+    
+    
+    
+    
 
 
 }
