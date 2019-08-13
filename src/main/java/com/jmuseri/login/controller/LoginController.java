@@ -3,6 +3,7 @@ package com.jmuseri.login.controller;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -20,7 +21,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -92,10 +95,16 @@ public class LoginController {
     }
     
     
-    
-    
-    
-    
+    @RequestMapping(value="/upload", method = RequestMethod.POST, produces = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public @ResponseBody void upload(@RequestParam("archivo") MultipartFile file, HttpServletResponse response) throws IOException{
+
+             // Get the file and save it somewhere
+             byte[] bytes = file.getBytes();
+	        //response.setContentType("");
+	        response.setHeader("Content-Disposition", "attachment; filename=" + file.getOriginalFilename());
+//	        response.setHeader("Content-Length", String.valueOf(in.));
+	        FileCopyUtils.copy(bytes, response.getOutputStream());
+    }
 
 
 }

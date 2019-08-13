@@ -37,7 +37,13 @@
                 type="Submit">descargar documento pdf
         </button>
     </form>
-
+        <form th:action="@{/upload}" method="post" enctype="multipart/form-data">
+        <input type="file" id="file" name="archivo" class="form-control" required />
+        <button class="btn btn-md btn-danger btn-block" name="registration"
+                type="Submit">Subir Documento
+        </button>
+    </form>
+    
 </div>
 </body>
 </html>
